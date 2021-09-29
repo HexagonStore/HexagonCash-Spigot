@@ -3,6 +3,7 @@ package hexagonstore.cash.commands;
 import hexagonstore.cash.CashSpigot;
 import hexagonstore.cash.api.CashAPI;
 
+import hexagonstore.cash.utils.EC_Config;
 import hexagonstore.cash.utils.NumberFormatter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,135 +13,135 @@ import org.bukkit.entity.Player;
 public class CashCommand implements CommandExecutor {
 
     private CashAPI cashAPI = CashSpigot.getPlugin().cashAPI;
-
+    private EC_Config config =  CashSpigot.getPlugin().config;
+    
+    private String get(String path) {
+        return config.getString("Messages." + path).replace("&", "§");
+    }
+    
     @Override
     public boolean onCommand(CommandSender s, Command cmd, String lb, String[] a) {
         if (a.length == 0) {
             if (!(s instanceof Player)) {
-                s.sendMessage("§cComando desativado via Console.");
+                s.sendMessage(get("no_console"));
                 return true;
             }
 
             Player player = (Player) s;
             double cash = cashAPI.getCashAndCreateAccount(player.getName(), false);
-            s.sendMessage("§aSeu saldo de cash: §f" + NumberFormatter.formatNumber(cash) + ".");
+            s.sendMessage(get("cash").replace("{cash}", NumberFormatter.formatNumber(cash)));
             return true;
         }
 
         if (a[0].equalsIgnoreCase("help") || a[0].equalsIgnoreCase("ajuda")) {
             showHelp(s);
-        }else if (a[0].equalsIgnoreCase("set") || a[0].equalsIgnoreCase("setar")) {
-            if (s.hasPermission("cash.admin")) {
+        } else if (a[0].equalsIgnoreCase("set") || a[0].equalsIgnoreCase("setar")) {
+            if (s.hasPermission(config.getString("cmd permission.admin"))) {
                 if (a.length < 3) {
-                    s.sendMessage("§cUtilize: /cash set <player> <quantia>.");
+                    s.sendMessage(get("no_args.set"));
                     return true;
                 }
 
                 String nick = a[1].toLowerCase();
                 if (!cashAPI.accounts.containsKey(nick.toLowerCase())) {
-                    s.sendMessage("§cConta inexistente.");
+                    s.sendMessage(get("no_exists"));
                     return true;
                 }
                 try {
                     double amount = NumberFormatter.parseString(a[2]);
-                    if(amount < 1) {
-                        s.sendMessage("§cDigite um número válido.");
+                    if (amount < 1) {
+                        s.sendMessage(get("invalid_number"));
+
                         return true;
                     }
                     cashAPI.setCash(nick, amount);
-                    s.sendMessage("§aVocê setou o saldo de: §f" + nick + " §apara: §f" + NumberFormatter.formatNumber(amount));
+                    s.sendMessage(get("setted").replace("{cash}", NumberFormatter.formatNumber(amount)).replace("{player}", nick));
                 } catch (Exception e) {
-                    s.sendMessage("§cDigite um número válido.");
+                    s.sendMessage(get("invalid_number"));
                 }
             } else {
-                s.sendMessage("§cVocê não tem permissão suficiente.");
+                s.sendMessage(get("no_permission"));
             }
         } else if (a[0].equalsIgnoreCase("add") || a[0].equalsIgnoreCase("give") || a[0].equalsIgnoreCase("adicionar")) {
-            if (s.hasPermission("cash.admin")) {
+            if (s.hasPermission(config.getString("cmd permission.admin"))) {
                 if (a.length < 3) {
-                    s.sendMessage("§cUtilize: /cash add <player> <quantia>.");
+                    s.sendMessage(get("no_args.add"));
                     return true;
                 }
 
                 String nick = a[1].toLowerCase();
                 if (!cashAPI.accounts.containsKey(nick.toLowerCase())) {
-                    s.sendMessage("§cConta inexistente.");
+                    s.sendMessage(get("no_exists"));
                     return true;
                 }
                 try {
                     double amount = NumberFormatter.parseString(a[2]);
-                    if(amount < 1) {
-                        s.sendMessage("§cDigite um número válido.");
+                    if (amount < 1) {
+                        s.sendMessage(get("invalid_number"));
                         return true;
                     }
                     cashAPI.setCash(nick, cashAPI.getCash(nick));
-                    s.sendMessage("§aVocê adicionou ao saldo de: §f" + nick + " §aa quantia de: §f" + NumberFormatter.formatNumber(amount));
+                    s.sendMessage(get("added").replace("{cash}", NumberFormatter.formatNumber(amount)).replace("{player}", nick));
                 } catch (Exception e) {
-                    s.sendMessage("§cDigite um número válido.");
+                    s.sendMessage(get("invalid_number"));
                 }
             } else {
-                s.sendMessage("§cVocê não tem permissão suficiente.");
+                s.sendMessage(get("no_permission"));
             }
         } else if (a[0].equalsIgnoreCase("remove") || a[0].equalsIgnoreCase("remover") || a[0].equalsIgnoreCase("withdraw")) {
-            if (s.hasPermission("cash.admin")) {
+            if (s.hasPermission(config.getString("cmd permission.admin"))) {
                 if (a.length < 3) {
-                    s.sendMessage("§cUtilize: /cash remove <player> <quantia>.");
+                    s.sendMessage(get("no_args.remove"));
                     return true;
                 }
 
                 String nick = a[1].toLowerCase();
                 if (!cashAPI.accounts.containsKey(nick.toLowerCase())) {
-                    s.sendMessage("§cConta inexistente.");
+                    s.sendMessage(get("no_exists"));
                     return true;
                 }
                 try {
                     double amount = NumberFormatter.parseString(a[2]);
-                    if(amount < 1) {
-                        s.sendMessage("§cDigite um número válido.");
+                    if (amount < 1) {
+                        s.sendMessage(get("invalid_number"));
                         return true;
                     }
                     cashAPI.setCash(nick, cashAPI.getCash(nick) - amount);
-                    s.sendMessage("§aVocê removeu do saldo de: §f" + nick + " §aa quantia de: §f" + NumberFormatter.formatNumber(amount));
+                    s.sendMessage(get("removed").replace("{cash}", NumberFormatter.formatNumber(amount)).replace("{player}", nick));
                 } catch (Exception e) {
-                    s.sendMessage("§cDigite um número válido.");
+                    s.sendMessage(get("invalid_number"));
                 }
             } else {
-                s.sendMessage("§cVocê não tem permissão suficiente!");
+                s.sendMessage(get("no_permission"));
             }
         } else if (a[0].equalsIgnoreCase("ver") || a[0].equalsIgnoreCase("view") || a[0].equalsIgnoreCase("vizualizar")) {
-            if (s.hasPermission("cash.admin")) {
-                if (a.length < 2) {
-                    s.sendMessage("§cUtilize: /cash ver <player>.");
-                    return true;
-                }
-
-                String nick = a[1].toLowerCase();
-                if (!cashAPI.accounts.containsKey(nick.toLowerCase())) {
-                    s.sendMessage("§cConta inexistente.");
-                    return true;
-                }
-                s.sendMessage("§aO saldo de: §f" + nick + "§aé: §f" + cashAPI.getCash(nick) + ".");
-            } else {
-                s.sendMessage("§cVocê não tem permissão suficiente.");
+            if (a.length < 2) {
+                s.sendMessage(get("no_args.ver"));
+                return true;
             }
-        }else {
+
+            String nick = a[1].toLowerCase();
+            if (!cashAPI.accounts.containsKey(nick.toLowerCase())) {
+                s.sendMessage(get("no_exists"));
+                return true;
+            }
+            s.sendMessage(get("cash_target").replace("{cash}", NumberFormatter.formatNumber(cashAPI.getCash(nick))).replace("{player}", nick));
+        } else {
             showHelp(s);
         }
         return true;
     }
 
     private void showHelp(CommandSender s) {
-        s.sendMessage(" ");
-        s.sendMessage("     §e§lAJUDA     ");
-        s.sendMessage(" ");
-        s.sendMessage(" §a/cash §8- §7Veja seu saldo de cash.");
-        s.sendMessage(" §a/cash help §8- §7Veja essa mensagem.");
-        if (s.hasPermission("cash.admin")) {
-            s.sendMessage(" §a/cash set <player> <quantia> §8- §7Sete o saldo de cash de algum jogador.");
-            s.sendMessage(" §a/cash remove <player> <quantia> §8- §7Remova uma quantia de cash do saldo de algum jogador.");
-            s.sendMessage(" §a/cash add <player> <quantia> §8- §7Adicione uma quantia de cash no saldo de algum jogador.");
-            s.sendMessage(" §a/cash ver <player> §8- §7Veja o saldo de cash de algum jogador.");
+        String helpType = "normal";
+        if(s.hasPermission(config.getString("cmd permission.admin"))) {
+            helpType = "admin";
+        }else if(!s.hasPermission(config.getString("cmd permission.normal"))) {
+            s.sendMessage(get("no_permission"));
+            return;
         }
-        s.sendMessage(" ");
+        config.getStringList("Messages.help." + helpType).forEach(line -> {
+            s.sendMessage(line.replace("&", "§"));
+        });
     }
 }

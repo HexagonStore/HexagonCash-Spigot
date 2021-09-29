@@ -1,26 +1,67 @@
 MySQL:
   ativar: false #false = SQLite, true = MySQL
   user: root
-  pass: ''
+  pass: ""
   host: localhost:3306
   database: test
 
 CashInicial: #Cash inicial ao entrar no servidor pela primeira vez.
   ativar: false #Caso queira ativar o cash inicial deixe true, caso não queira, deixe false.
-  cash: 0.0 #Ignore caso a opção 'ativar' estiver false;
+  cash: 0.0 #Ignore caso a opção "ativar" estiver false;
 
 Formatter:
   ativar: true #Caso queira ativar formatador de cash deixe true, caso não queira, deixe false.
   suffixes:
-    - '' #DEIXE UM ESPAÇO VÁZIO NA LISTA.
-    - 'K' #K = Mil;
-    - 'M' #M = Milhão;
-    - 'B' #B = Bilhão;
-    - 'T' #T = Trilhão;
-    - 'Q' #Q = Quadrilhão;
-    - 'QQ' #QQ = Quintilhão;
-    - 'S' #S = Sextilhão;
-    - 'SS' #SS = Septilhão;
-    - 'O' #O = Octilhão;
-    - 'N' #N = Nonilhão;
-    - 'D' #D = Decilhão;
+    - "" #DEIXE UM ESPAÇO VÁZIO NA LISTA.
+    - "K" #K = Mil;
+    - "M" #M = Milhão;
+    - "B" #B = Bilhão;
+    - "T" #T = Trilhão;
+    - "Q" #Q = Quadrilhão;
+    - "QQ" #QQ = Quintilhão;
+    - "S" #S = Sextilhão;
+    - "SS" #SS = Septilhão;
+    - "O" #O = Octilhão;
+    - "N" #N = Nonilhão;
+    - "D" #D = Decilhão;
+
+cmd permission: #Deixe "" caso não queira nenhuma permissão.
+  admin: "cash.admin"
+  normal: "cash.cmd"
+
+Messages:
+  no_console: "&cComando desativado via Console."
+  no_permission: "&cVocê não tem permissão suficiente."
+  no_exists: "&cConta inexistente."
+  invalid_number: "&cDigite um número válido."
+  cash: "&aSeu saldo de cash: &f{cash}."
+  cash_target: "&aO saldo de: &f{player}, &aé: &f{cash}."
+  added: "&aVocê adicionou ao saldo de: &f{player} &aa quantia de: &f{cash}."
+  setted: "&aVocê setou o saldo de: &f{player} &apara a quantia de: &f{cash}."
+  removed: "&aVocê removeu do saldo de: &f{player} &aa quantia de: &f{cash}"
+  no_args:
+    set: "&cUtilize: /cash set <player> <quantia>."
+    add: "&cUtilize: /cash add <player> <quantia>."
+    remove: "&cUtilize: /cash remove <player> <quantia>."
+    ver: "&cUtilize: /cash ver <player>."
+  help:
+    admin:
+      - " "
+      - "     &e&lAJUDA     "
+      - " "
+      - " &a/cash &8- &7Veja seu saldo de cash."
+      - " &a/cash help &8- &7Veja essa mensagem."
+      - " &a/cash ver <player> &8- &7Veja o saldo de cash de algum jogador."
+      - " "
+      - " &a/cash set <player> <quantia> &8- &7Sete o saldo de cash de algum jogador."
+      - " &a/cash remove <player> <quantia> &8- &7Remova uma quantia de cash do saldo de algum jogador."
+      - " &a/cash add <player> <quantia> &8- &7Adicione uma quantia de cash no saldo de algum jogador."
+      - " "
+    normal:
+      - " "
+      - "     &e&lAJUDA     "
+      - " "
+      - " &a/cash &8- &7Veja seu saldo de cash."
+      - " &a/cash help &8- &7Veja essa mensagem."
+      - " &a/cash ver <player> &8- &7Veja o saldo de cash de algum jogador."
+      - " "
