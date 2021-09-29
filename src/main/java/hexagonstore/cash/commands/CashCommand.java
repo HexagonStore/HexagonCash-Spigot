@@ -28,8 +28,13 @@ public class CashCommand implements CommandExecutor {
             }
 
             Player player = (Player) s;
-            double cash = cashAPI.getCashAndCreateAccount(player.getName(), false);
-            s.sendMessage(get("cash").replace("{cash}", NumberFormatter.formatNumber(cash)));
+            if (player.hasPermission(config.getString("cmd permission.normal"))) {
+                double cash = cashAPI.getCashAndCreateAccount(player.getName(), false);
+                s.sendMessage(get("cash").replace("{cash}", NumberFormatter.formatNumber(cash)));
+            }else {
+                s.sendMessage(get("no_permission"));
+            }
+
             return true;
         }
 
@@ -115,25 +120,37 @@ public class CashCommand implements CommandExecutor {
                 s.sendMessage(get("no_permission"));
             }
         } else if (a[0].equalsIgnoreCase("ver") || a[0].equalsIgnoreCase("view") || a[0].equalsIgnoreCase("vizualizar")) {
-            if (a.length < 2) {
-                s.sendMessage(get("no_args.ver"));
-                return true;
-            }
+            if (s.hasPermission(config.getString("cmd permission.normal"))) {
+                if (a.length < 2) {
+                    s.sendMessage(get("no_args.ver"));
+                    return true;
+                }
 
-            String nick = a[1].toLowerCase();
-            if (!cashAPI.accounts.containsKey(nick.toLowerCase())) {
-                s.sendMessage(get("no_exists"));
-                return true;
+                String nick = a[1].toLowerCase();
+                if (!cashAPI.accounts.containsKey(nick.toLowerCase())) {
+                    s.sendMessage(get("no_exists"));
+                    return true;
+                }
+                s.sendMessage(get("cash_target").replace("{cash}", NumberFormatter.formatNumber(cashAPI.getCash(nick))).replace("{player}", nick));
+            }else {
+                s.sendMessage(get("no_permission"));
             }
-            s.sendMessage(get("cash_target").replace("{cash}", NumberFormatter.formatNumber(cashAPI.getCash(nick))).replace("{player}", nick));
         }else if(a[0].equalsIgnoreCase("shop") || a[0].equalsIgnoreCase("loja")) {
-            if (!(s instanceof Player)) {
-                s.sendMessage(get("no_console"));
+            if(CashSpigot.getPlugin().shopConfig.getBoolean("Shop.ativar")) {
+                showHelp(s);
                 return true;
             }
+            if (s.hasPermission(config.getString("cmd permission.normal"))) {
+                if (!(s instanceof Player)) {
+                    s.sendMessage(get("no_console"));
+                    return true;
+                }
 
-            Player player = (Player) s;
-            cashAPI.openShop(player);
+                Player player = (Player) s;
+                cashAPI.openShop(player);
+            }else {
+                s.sendMessage(get("no_permission"));
+            }
         } else {
             showHelp(s);
         }
