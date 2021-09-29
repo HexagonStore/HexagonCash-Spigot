@@ -93,7 +93,7 @@ public class ShopManager {
                 mt.setLore(newLore);
                 productItem.setItemMeta(mt);
                 int slot = key.getInt("slot");
-                products.put(slot, new ShopItem(key.getString("displayName"), productItem, slot, price));
+                products.put(slot, new ShopItem(key.getString("displayName"), new ArrayList<>(key.getStringList("commands")), productItem, price, slot));
             }
         } else
             Bukkit.getConsoleSender().sendMessage("§c[HexagonCash] A section 'Products' não foi encontrada no arquivo 'shop.yml', por favor, contate o suporte do plugin.");

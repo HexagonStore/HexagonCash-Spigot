@@ -13,13 +13,12 @@ public class ShopItem {
     private double price;
     private int slot;
 
-    public ShopItem(String name, ItemStack it, int slot, double price) {
-        this.name =  name;
+    public ShopItem(String name, ArrayList<String> commands, ItemStack it, double price, int slot) {
+        this.name = name;
+        this.commands = commands;
         this.it = it;
-        this.slot = slot;
         this.price = price;
-
-        this.commands = new ArrayList<>();
+        this.slot = slot;
     }
 
     public String getName() {

@@ -40,7 +40,7 @@ public class ClickEvent implements Listener {
                         shopItem.getCommands().forEach(command -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("@player", player.getName())));
 
                         player.closeInventory();
-                        config.getStringList("Messages.product_buy").forEach(line -> player.sendMessage(line.replace("@cash", String.valueOf(cashAPI.getCash(player.getName()))).replace("@productPrice", NumberFormatter.formatNumber(shopItem.getPrice())).replace("@productName", shopItem.getName()).replace("&", "§")));
+                        config.getStringList("Messages.product_buy").forEach(line -> player.sendMessage(line.replace("@cash", NumberFormatter.formatNumber(cashAPI.getCash(player.getName()))).replace("@productPrice", NumberFormatter.formatNumber(shopItem.getPrice())).replace("@productName", shopItem.getName()).replace("&", "§")));
                     }else {
                         player.closeInventory();
                         player.sendMessage(config.getString("Messages.no_cash").replace("&", "§"));
