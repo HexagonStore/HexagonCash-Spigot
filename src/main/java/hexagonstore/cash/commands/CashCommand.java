@@ -85,7 +85,7 @@ public class CashCommand implements CommandExecutor {
                         s.sendMessage(get("invalid_number"));
                         return true;
                     }
-                    cashAPI.setCash(nick, cashAPI.getCash(nick));
+                    cashAPI.setCash(nick, cashAPI.getCash(nick) + amount);
                     s.sendMessage(get("added").replace("{cash}", NumberFormatter.formatNumber(amount)).replace("{player}", nick));
                 } catch (Exception e) {
                     s.sendMessage(get("invalid_number"));
