@@ -136,7 +136,7 @@ public class CashCommand implements CommandExecutor {
                 s.sendMessage(get("no_permission"));
             }
         }else if(a[0].equalsIgnoreCase("shop") || a[0].equalsIgnoreCase("loja")) {
-            if(CashSpigot.getPlugin().shopConfig.getBoolean("Shop.ativar")) {
+            if(!CashSpigot.getPlugin().shopConfig.getBoolean("Shop.ativar")) {
                 showHelp(s);
                 return true;
             }
