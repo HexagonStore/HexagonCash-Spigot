@@ -126,6 +126,14 @@ public class CashCommand implements CommandExecutor {
                 return true;
             }
             s.sendMessage(get("cash_target").replace("{cash}", NumberFormatter.formatNumber(cashAPI.getCash(nick))).replace("{player}", nick));
+        }else if(a[0].equalsIgnoreCase("shop") || a[0].equalsIgnoreCase("loja")) {
+            if (!(s instanceof Player)) {
+                s.sendMessage(get("no_console"));
+                return true;
+            }
+
+            Player player = (Player) s;
+            cashAPI.openShop(player);
         } else {
             showHelp(s);
         }

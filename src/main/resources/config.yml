@@ -44,6 +44,14 @@ Messages:
     add: "&cUtilize: /cash add <player> <quantia>."
     remove: "&cUtilize: /cash remove <player> <quantia>."
     ver: "&cUtilize: /cash ver <player>."
+  product_buy:
+    - ""
+    - "&aVocê comprou o produto &f'@productName' &acom sucesso!"
+    - ""
+    - "&aPreço: &f@productPrice."
+    - "&aSaldo atual: &f@cash."
+    - ""
+  no_click: "&cPara comprar um produto você deve apertar: SHIFT + Botão esquerdo ao mesmo tempo em cima do item!"
   help:
     admin:
       - " "

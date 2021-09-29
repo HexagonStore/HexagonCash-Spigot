@@ -3,6 +3,7 @@ package hexagonstore.cash.api;
 import hexagonstore.cash.CashSpigot;
 import hexagonstore.cash.dao.AccountsDao;
 import hexagonstore.cash.utils.EC_Config;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
@@ -28,6 +29,8 @@ public class CashAPI {
             accounts.put(playerName, cashInicial);
         }
     }
+
+    public void openShop(Player player) { CashSpigot.getPlugin().shopManager.open(player); }
 
     public void setCash(String playerName, double cash) {
         accounts.put(playerName.toLowerCase(), cash);

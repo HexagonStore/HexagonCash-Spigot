@@ -5,6 +5,7 @@ import hexagonstore.cash.commands.CashCommand;
 import hexagonstore.cash.listeners.JoinEvent;
 import hexagonstore.cash.listeners.QuitEvent;
 import hexagonstore.cash.manager.AccountManager;
+import hexagonstore.cash.manager.ShopManager;
 import hexagonstore.cash.repository.Database;
 import hexagonstore.cash.repository.providers.MySQL;
 import hexagonstore.cash.repository.providers.SQLite;
@@ -17,7 +18,10 @@ public class CashSpigot extends JavaPlugin {
     private static CashSpigot plugin;
 
     public EC_Config config;
-    public AccountManager manager;
+    public EC_Config shopConfig;
+
+    public AccountManager accountManager;
+    public ShopManager shopManager;
     public CashAPI cashAPI;
 
     public Database database;
@@ -31,14 +35,18 @@ public class CashSpigot extends JavaPlugin {
         plugin = this;
 
         config = new EC_Config(null, "config.yml", false);
+        shopConfig = new EC_Config(null, "shop.yml", false);
 
         database = config.getBoolean("MySQL.ativar") ? new MySQL() : new SQLite();
         database.open();
 
         cashAPI = new CashAPI();
 
-        manager = new AccountManager(this);
-        manager.loadAccounts();
+        accountManager = new AccountManager(this);
+        accountManager.loadAccounts();
+
+        shopManager = new ShopManager(this);
+        shopManager.loadProducts();
 
         Bukkit.getPluginManager().registerEvents(new JoinEvent(), this);
         Bukkit.getPluginManager().registerEvents(new QuitEvent(), this);
@@ -47,7 +55,7 @@ public class CashSpigot extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        manager.saveAccounts();
+        accountManager.saveAccounts();
         database.close();
     }
 }
