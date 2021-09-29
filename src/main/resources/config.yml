@@ -52,6 +52,7 @@ Messages:
     - "&aSaldo atual: &f@cash."
     - ""
   no_click: "&cPara comprar um produto você deve apertar: SHIFT + Botão esquerdo ao mesmo tempo em cima do item!"
+  no_cash: "&cVocê não tem cash suficiente para esta compra."
   help:
     admin:
       - " "
