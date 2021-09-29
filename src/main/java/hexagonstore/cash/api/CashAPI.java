@@ -12,8 +12,9 @@ public class CashAPI {
     public EC_Config config = CashPlugin.getPlugin().config;
 
     public double getCashAndCreateAccount(String playerName, boolean initialCash) {
-        if(accounts.containsKey(playerName.toLowerCase())) {
-            return accounts.get(playerName.toLowerCase());
+        playerName = playerName.toLowerCase();
+        if(accounts.containsKey(playerName)) {
+            return accounts.get(playerName);
         }
 
         createAccount(playerName, initialCash);
@@ -21,8 +22,11 @@ public class CashAPI {
     }
 
     public void createAccount(String playerName, boolean initialCash) {
-        double cashInicial = initialCash ? (config.getBoolean("CashInicial.ativar") ? config.getDouble("CashInicial.cash") : 0.0) : 0.0;
-        accounts.put(playerName.toLowerCase(), cashInicial);
+        if(!accounts.containsKey(playerName)) {
+            playerName = playerName.toLowerCase();
+            double cashInicial = initialCash ? (config.getBoolean("CashInicial.ativar") ? config.getDouble("CashInicial.cash") : 0.0) : 0.0;
+            accounts.put(playerName, cashInicial);
+        }
     }
 
     public void setCash(String playerName, double cash) {

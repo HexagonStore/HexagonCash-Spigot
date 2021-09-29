@@ -16,8 +16,16 @@ public class SQLite implements Database {
         return connection;
     }
 
+    private void createDirectory(String directory) {
+        if(directory != null) {
+            File currentDirectory = new File(CashPlugin.getPlugin().getDataFolder(), directory.replace("/", File.separator));
+            currentDirectory.mkdirs();
+        }
+    }
+
     @Override
     public void open() {
+        createDirectory("sqlite");
         File file = new File(CashPlugin.getPlugin().getDataFolder() + File.separator + "sqlite", "database.db");
         String url = "jdbc:sqlite:" + file;
 
