@@ -27,12 +27,12 @@ public class CashCommand implements CommandExecutor {
             return true;
         }
 
-        if (a[0].equalsIgnoreCase("help")) {
+        if (a[0].equalsIgnoreCase("help") || a[0].equalsIgnoreCase("ajuda")) {
             showHelp(s);
-        }else if (a[0].equalsIgnoreCase("set")) {
+        }else if (a[0].equalsIgnoreCase("set") || a[0].equalsIgnoreCase("setar")) {
             if (s.hasPermission("cash.admin")) {
                 if (a.length < 3) {
-                    s.sendMessage("§cUtilize: /cash set <jogador> <quantia>.");
+                    s.sendMessage("§cUtilize: /cash set <player> <quantia>.");
                     return true;
                 }
 
@@ -48,17 +48,17 @@ public class CashCommand implements CommandExecutor {
                         return true;
                     }
                     cashAPI.setCash(nick, amount);
-                    s.sendMessage("§aVocê setou o saldo de: §f"+ NumberFormatter.formatNumber(amount) + " §apara o jogador: §f" + nick);
+                    s.sendMessage("§aVocê setou o saldo de: §f" + nick + " §apara: §f" + NumberFormatter.formatNumber(amount));
                 } catch (Exception e) {
                     s.sendMessage("§cDigite um número válido.");
                 }
             } else {
                 s.sendMessage("§cVocê não tem permissão suficiente.");
             }
-        } else if (a[0].equalsIgnoreCase("add")) {
+        } else if (a[0].equalsIgnoreCase("add") || a[0].equalsIgnoreCase("give") || a[0].equalsIgnoreCase("adicionar")) {
             if (s.hasPermission("cash.admin")) {
                 if (a.length < 3) {
-                    s.sendMessage("§cUtilize: /cash add <jogador> <quantia>.");
+                    s.sendMessage("§cUtilize: /cash add <player> <quantia>.");
                     return true;
                 }
 
@@ -74,17 +74,17 @@ public class CashCommand implements CommandExecutor {
                         return true;
                     }
                     cashAPI.setCash(nick, cashAPI.getCash(nick));
-                    s.sendMessage("§aVocê adicionou ao saldo de: §f" + nick + " §aa quantia de: §f"+ NumberFormatter.formatNumber(amount));
+                    s.sendMessage("§aVocê adicionou ao saldo de: §f" + nick + " §aa quantia de: §f" + NumberFormatter.formatNumber(amount));
                 } catch (Exception e) {
                     s.sendMessage("§cDigite um número válido.");
                 }
             } else {
                 s.sendMessage("§cVocê não tem permissão suficiente.");
             }
-        } else if (a[0].equalsIgnoreCase("remove")) {
+        } else if (a[0].equalsIgnoreCase("remove") || a[0].equalsIgnoreCase("remover") || a[0].equalsIgnoreCase("withdraw")) {
             if (s.hasPermission("cash.admin")) {
                 if (a.length < 3) {
-                    s.sendMessage("§cUtilize: /cash remove <jogador> <quantia>.");
+                    s.sendMessage("§cUtilize: /cash remove <player> <quantia>.");
                     return true;
                 }
 
@@ -100,17 +100,17 @@ public class CashCommand implements CommandExecutor {
                         return true;
                     }
                     cashAPI.setCash(nick, cashAPI.getCash(nick) - amount);
-                    s.sendMessage("§aVocê removeu do saldo de: §f" + nick + " §aa quantia de: §f"+ NumberFormatter.formatNumber(amount));
+                    s.sendMessage("§aVocê removeu do saldo de: §f" + nick + " §aa quantia de: §f" + NumberFormatter.formatNumber(amount));
                 } catch (Exception e) {
                     s.sendMessage("§cDigite um número válido.");
                 }
             } else {
                 s.sendMessage("§cVocê não tem permissão suficiente!");
             }
-        } else if (a[0].equalsIgnoreCase("ver")) {
+        } else if (a[0].equalsIgnoreCase("ver") || a[0].equalsIgnoreCase("view") || a[0].equalsIgnoreCase("vizualizar")) {
             if (s.hasPermission("cash.admin")) {
                 if (a.length < 2) {
-                    s.sendMessage("§cUtilize: /cash ver <jogador>.");
+                    s.sendMessage("§cUtilize: /cash ver <player>.");
                     return true;
                 }
 
@@ -136,10 +136,11 @@ public class CashCommand implements CommandExecutor {
         s.sendMessage(" §a/cash §8- §7Veja seu saldo de cash.");
         s.sendMessage(" §a/cash help §8- §7Veja essa mensagem.");
         if (s.hasPermission("cash.admin")) {
-            s.sendMessage("§a/cash set §8- §7Sete o saldo de cash de algum jogador.");
-            s.sendMessage("§a/cash remove §8- §7Remova uma quantia de cash do saldo de algum jogador.");
-            s.sendMessage("§a/cash add §8- §7Adicione uma quantia de cash no saldo de algum jogador.");
-            s.sendMessage("§a/cash ver §8- §7Veja o saldo de cash de algum jogador.");
+            s.sendMessage(" §a/cash set <player> <quantia> §8- §7Sete o saldo de cash de algum jogador.");
+            s.sendMessage(" §a/cash remove <player> <quantia> §8- §7Remova uma quantia de cash do saldo de algum jogador.");
+            s.sendMessage(" §a/cash add <player> <quantia> §8- §7Adicione uma quantia de cash no saldo de algum jogador.");
+            s.sendMessage(" §a/cash ver <player> §8- §7Veja o saldo de cash de algum jogador.");
         }
+        s.sendMessage(" ");
     }
 }
