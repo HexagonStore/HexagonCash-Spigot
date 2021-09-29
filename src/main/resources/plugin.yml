@@ -1,0 +1,6 @@
+name: HexagonCash
+version: 1.0
+main: hexagonstore.cash.Main
+author: sailez_
+commands:
+  cash:

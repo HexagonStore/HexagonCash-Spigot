@@ -1,0 +1,24 @@
+MySQL:
+  ativar: false
+  user: root
+  pass: ''
+  host: localhost:3306
+  database: test
+
+CashInicial: #Cash inicial ao entrar no servidor pela primeira vez.
+  ativar: false #Ativar o cash inicial.
+  cash: 0.0 #Ignore caso a opção 'ativar' estiver false;
+
+Formatter:
+  - '' #DEIXE UM ESPAÇO VÁZIO NA LISTA.
+  - 'K' #K = Mil;
+  - 'M' #M = Milhão;
+  - 'B' #B = Bilhão;
+  - 'T' #T = Trilhão;
+  - 'Q' #Q = Quadrilhão;
+  - 'QQ' #QQ = Quintilhão;
+  - 'S' #S = Sextilhão;
+  - 'SS' #SS = Septilhão;
+  - 'O' #O = Octilhão;
+  - 'N' #N = Nonilhão;
+  - 'D' #D = Decilhão;
