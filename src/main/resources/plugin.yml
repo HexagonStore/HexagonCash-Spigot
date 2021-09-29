@@ -1,6 +1,6 @@
 name: HexagonCash
 version: 1.0.0-BETA
-main: hexagonstore.cash.CashPlugin
+main: hexagonstore.cash.CashSpigot
 author: sailez_
 commands:
   cash:
