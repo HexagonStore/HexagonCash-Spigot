@@ -4,7 +4,6 @@ import hexagonstore.cash.api.CashAPI;
 import hexagonstore.cash.commands.CashCommand;
 import hexagonstore.cash.listeners.ClickEvent;
 import hexagonstore.cash.listeners.JoinEvent;
-import hexagonstore.cash.listeners.QuitEvent;
 import hexagonstore.cash.manager.AccountManager;
 import hexagonstore.cash.manager.ShopManager;
 import hexagonstore.cash.repository.Database;
@@ -50,7 +49,6 @@ public class CashSpigot extends JavaPlugin {
         shopManager.loadProducts();
 
         Bukkit.getPluginManager().registerEvents(new JoinEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new QuitEvent(), this);
         Bukkit.getPluginManager().registerEvents(new ClickEvent(this), this);
         getCommand("cash").setExecutor(new CashCommand());
     }
