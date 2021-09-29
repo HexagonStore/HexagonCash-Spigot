@@ -1,0 +1,50 @@
+Shop:
+  ativar: true
+  name: "&8Shop - Cash"
+  rows: 3
+  next-page-item:
+    skull-url:
+      ativar: false
+      code: "" #Codigo da skull-url (Ignore caso a opção "ativar" estiver true); Exemplo de codigo: 1de4361b3b85c29520d8c0cf443fde1e1bb81408aac9367a68ba52bb0aea97f3
+    material: ARROW
+    data: 0
+    name: "&aPróxima página"
+    lore:
+      - ""
+      - " &7Vá para a próxima página."
+    glow: true
+    slot: 18
+  previous-page-item:
+    skull-url:
+      ativar: false
+      code: "" #Codigo da skull-url (Ignore caso a opção "ativar" estiver true); Exemplo de codigo: 1de4361b3b85c29520d8c0cf443fde1e1bb81408aac9367a68ba52bb0aea97f3
+    material: ARROW
+    data: 0
+    name: "&aPágina anterior"
+    lore:
+      - ""
+      - " &7Vá para a página anterior."
+    glow: true
+    slot: 26
+
+Products:
+  '1':
+    displayName: "Diamante (64x)"
+    skull-url:
+      ativar: true
+      code: "1de4361b3b85c29520d8c0cf443fde1e1bb81408aac9367a68ba52bb0aea97f3" #Codigo da skull-url (Ignore caso a opção "ativar" estiver true); Exemplo de codigo: 1de4361b3b85c29520d8c0cf443fde1e1bb81408aac9367a68ba52bb0aea97f3
+    material: DIAMOND
+    data: 0
+    name: "&aDiamante (64x)"
+    lore:
+      - ""
+      - " &7Minério precioso."
+      - " &7Preço: &f{price}"
+      - ""
+      - "  &eAperte SHIFT + Botão esquerdo para comprar."
+    price: "50K" #Dois tipos: 50K ou 50000 (Você escolhe o jeito :>, lembrando que os números são apenas exemplos!).
+    slot: 13
+    glow: true
+    commands:
+      - "give {player} diamond 64"
+      - "say O jogador {player} comprou 64 diamantes (RARO)."
