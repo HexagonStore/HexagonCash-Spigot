@@ -3,6 +3,7 @@ package hexagonstore.cash;
 import hexagonstore.cash.api.CashAPI;
 import hexagonstore.cash.commands.CashCommand;
 import hexagonstore.cash.listeners.JoinEvent;
+import hexagonstore.cash.listeners.QuitEvent;
 import hexagonstore.cash.manager.AccountManager;
 import hexagonstore.cash.repository.Database;
 import hexagonstore.cash.repository.providers.MySQL;
@@ -11,9 +12,9 @@ import hexagonstore.cash.utils.EC_Config;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CashPlugin extends JavaPlugin {
+public class CashSpigot extends JavaPlugin {
 
-    private static CashPlugin instance;
+    private static CashSpigot plugin;
 
     public EC_Config config;
     public AccountManager manager;
@@ -21,13 +22,13 @@ public class CashPlugin extends JavaPlugin {
 
     public Database database;
 
-    public static CashPlugin getPlugin() {
-        return instance;
+    public static CashSpigot getPlugin() {
+        return plugin;
     }
 
     @Override
     public void onEnable() {
-        instance = this;
+        plugin = this;
 
         config = new EC_Config(null, "config.yml", false);
 
@@ -40,6 +41,7 @@ public class CashPlugin extends JavaPlugin {
         manager.loadAccounts();
 
         Bukkit.getPluginManager().registerEvents(new JoinEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new QuitEvent(), this);
         getCommand("cash").setExecutor(new CashCommand());
     }
 

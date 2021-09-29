@@ -1,6 +1,6 @@
 package hexagonstore.cash.api;
 
-import hexagonstore.cash.CashPlugin;
+import hexagonstore.cash.CashSpigot;
 import hexagonstore.cash.dao.AccountsDao;
 import hexagonstore.cash.utils.EC_Config;
 
@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class CashAPI {
 
     public HashMap<String, Double> accounts = AccountsDao.accounts;
-    public EC_Config config = CashPlugin.getPlugin().config;
+    public EC_Config config = CashSpigot.getPlugin().config;
 
     public double getCashAndCreateAccount(String playerName, boolean initialCash) {
         playerName = playerName.toLowerCase();

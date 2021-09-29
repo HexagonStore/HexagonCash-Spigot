@@ -1,6 +1,6 @@
 package hexagonstore.cash.repository.providers;
 
-import hexagonstore.cash.CashPlugin;
+import hexagonstore.cash.CashSpigot;
 import hexagonstore.cash.repository.Database;
 import org.bukkit.Bukkit;
 
@@ -18,7 +18,7 @@ public class SQLite implements Database {
 
     private void createDirectory(String directory) {
         if(directory != null) {
-            File currentDirectory = new File(CashPlugin.getPlugin().getDataFolder(), directory.replace("/", File.separator));
+            File currentDirectory = new File(CashSpigot.getPlugin().getDataFolder(), directory.replace("/", File.separator));
             currentDirectory.mkdirs();
         }
     }
@@ -26,7 +26,7 @@ public class SQLite implements Database {
     @Override
     public void open() {
         createDirectory("sqlite");
-        File file = new File(CashPlugin.getPlugin().getDataFolder() + File.separator + "sqlite", "database.db");
+        File file = new File(CashSpigot.getPlugin().getDataFolder() + File.separator + "sqlite", "database.db");
         String url = "jdbc:sqlite:" + file;
 
         try {
@@ -35,7 +35,7 @@ public class SQLite implements Database {
             createTable();
         } catch (Exception ex) {
             ex.printStackTrace();
-            Bukkit.getPluginManager().disablePlugin(CashPlugin.getPlugin());
+            Bukkit.getPluginManager().disablePlugin(CashSpigot.getPlugin());
         }
     }
 

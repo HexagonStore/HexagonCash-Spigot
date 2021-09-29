@@ -1,6 +1,6 @@
 package hexagonstore.cash.utils;
 
-import hexagonstore.cash.CashPlugin;
+import hexagonstore.cash.CashSpigot;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -15,7 +15,7 @@ public class NumberFormatter {
     private static boolean enabled;
 
     static {
-        EC_Config config = CashPlugin.getPlugin().config;
+        EC_Config config = CashSpigot.getPlugin().config;
         suffixes = config.getStringList("Formatter.suffixes");
         enabled = config.getBoolean("Formatter.ativar");
     }

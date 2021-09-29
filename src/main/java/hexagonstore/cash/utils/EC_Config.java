@@ -1,6 +1,6 @@
 package hexagonstore.cash.utils;
 
-import hexagonstore.cash.CashPlugin;
+import hexagonstore.cash.CashSpigot;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class EC_Config {
-    private CashPlugin main = CashPlugin.getPlugin();
+    private CashSpigot main = CashSpigot.getPlugin();
     private boolean isNewFile;
     private File currentDirectory;
     private File file;

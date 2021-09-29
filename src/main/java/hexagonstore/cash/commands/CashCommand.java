@@ -1,6 +1,6 @@
 package hexagonstore.cash.commands;
 
-import hexagonstore.cash.CashPlugin;
+import hexagonstore.cash.CashSpigot;
 import hexagonstore.cash.api.CashAPI;
 
 import hexagonstore.cash.utils.NumberFormatter;
@@ -11,14 +11,14 @@ import org.bukkit.entity.Player;
 
 public class CashCommand implements CommandExecutor {
 
-    private CashAPI cashAPI = CashPlugin.getPlugin().cashAPI;
+    private CashAPI cashAPI = CashSpigot.getPlugin().cashAPI;
 
     @Override
     public boolean onCommand(CommandSender s, Command cmd, String lb, String[] a) {
         if (a.length == 0) {
             if (!(s instanceof Player)) {
                 s.sendMessage("§cComando desativado via Console.");
-                return false;
+                return true;
             }
 
             Player player = (Player) s;

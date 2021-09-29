@@ -1,10 +1,9 @@
 package hexagonstore.cash.manager;
 
-import hexagonstore.cash.CashPlugin;
+import hexagonstore.cash.CashSpigot;
 import hexagonstore.cash.api.CashAPI;
 import hexagonstore.cash.dao.AccountsDao;
 import hexagonstore.cash.repository.Database;
-import hexagonstore.cash.utils.EC_Config;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +17,7 @@ public class AccountManager {
     public Database database;
     public CashAPI cashAPI;
 
-    public AccountManager(CashPlugin plugin) {
+    public AccountManager(CashSpigot plugin) {
         this.accounts = AccountsDao.accounts;
         this.database = plugin.database;
         this.cashAPI = plugin.cashAPI;

@@ -1,6 +1,6 @@
 package hexagonstore.cash.repository.providers;
 
-import hexagonstore.cash.CashPlugin;
+import hexagonstore.cash.CashSpigot;
 import hexagonstore.cash.repository.Database;
 import org.bukkit.Bukkit;
 
@@ -17,10 +17,10 @@ public class MySQL implements Database {
 
     @Override
     public void open() {
-        String host = CashPlugin.getPlugin().config.getString("MySQL.host");
-        String user = CashPlugin.getPlugin().config.getString("MySQL.user");
-        String password = CashPlugin.getPlugin().config.getString("MySQL.pass");
-        String database = CashPlugin.getPlugin().config.getString("MySQL.database");
+        String host = CashSpigot.getPlugin().config.getString("MySQL.host");
+        String user = CashSpigot.getPlugin().config.getString("MySQL.user");
+        String password = CashSpigot.getPlugin().config.getString("MySQL.pass");
+        String database = CashSpigot.getPlugin().config.getString("MySQL.database");
         String url = "jdbc:mysql://" + host + "/" + database + "?autoReconnect=true";
 
         try {
@@ -28,7 +28,7 @@ public class MySQL implements Database {
             createTable();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            Bukkit.getPluginManager().disablePlugin(CashPlugin.getPlugin());
+            Bukkit.getPluginManager().disablePlugin(CashSpigot.getPlugin());
         }
     }
 
