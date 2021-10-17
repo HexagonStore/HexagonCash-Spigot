@@ -12,7 +12,7 @@ import hexagonstore.cash.repository.providers.SQLite;
 import hexagonstore.cash.utils.EC_Config;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-
+import hexagonstore.cash.papi.CashExpansion;
 public class CashSpigot extends JavaPlugin {
 
     private static CashSpigot plugin;
@@ -51,6 +51,7 @@ public class CashSpigot extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new JoinEvent(), this);
         Bukkit.getPluginManager().registerEvents(new ClickEvent(this), this);
         getCommand("cash").setExecutor(new CashCommand());
+        new CashExpansion().register();
     }
 
     @Override
